@@ -1,0 +1,23 @@
+[flake8]
+exclude =
+    .git,
+    .gitignore,
+    *.pot,
+    *.py[co],
+    __pycache__,
+    venv,
+    .env
+    ./env
+    .venv
+    ./venv
+    manage.py
+    pycache
+    migrations
+
+
+ignore =
+    # A003 class attribute "help" is shadowing a python builti
+    A003,
+
+
+max-line-length = 200
