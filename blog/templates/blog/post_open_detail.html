@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<a href="{% url 'blog:post_user_list' %}">Back to Post list</a><br>
+<p> Post id: {{post.id}}</p>
+<p> Post title: {{post.title}}</p>
+<p> Short description: {{post.short_discription}}</p>
+<p> Description: {{post.discription}}</p>
+<p> Picture: {{post.picture}}</p>
+<p> Is published: {{post.is_published}}</p>
+<a href="{% url 'blog:create_comment' post.id %}">Add comment</a><br>
+</body>
+</html>

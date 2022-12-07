@@ -1,0 +1,51 @@
+<!DOCTYPE html>{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<a href="{% url 'blog:post_user_list' %}">Back to Post list</a><br>
+<p> Post id: {{post.id}}</p>
+<p> Post title: {{post.title}}</p>
+<p> Short description: {{post.short_discription}}</p>
+<p> Description: {{post.discription}}</p>
+<p> Picture: {{post.picture}}</p>
+<img src="{% static 'blog/download.jpg' %}" alt="My image">
+<p> Is published: {{post.is_published}}</p>
+{% if show_edit_page %}
+<a href="{% url 'blog:post_update' post.id %}">Edit post</a><br>
+{% endif %}
+<a href="{% url 'blog:create_comment' post.id %}">Add comment</a><br>
+<table>
+  <tr>
+    <th>Comment id</th>
+    <th>Comment text</th>
+
+  </tr>
+{% for p in post.comments.all %}
+    <tr>
+    <th>{{p.id}}</th>
+    <th>{{p.comment_text}}</th>
+</tr>
+{% endfor %}
+</table>
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+</body>
+</html>
