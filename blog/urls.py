@@ -6,7 +6,7 @@ from .views import (
     AllPostView, UsersPostView,
     PostDetailView, NotPublishedView,
     PostUpdateView, CreatePostsView,
-    CreateCommentView, PostDetailOpenView)
+    CreateCommentView, PostDetailOpenView, CommentListView)
 
 app_name = 'blog'
 urlpatterns = [
@@ -18,5 +18,7 @@ urlpatterns = [
     path('user_post/archive/', NotPublishedView.as_view(), name='archive'),
     path('user_post/<int:pk>/', PostDetailView.as_view(), name='post_detail'),
     path('user_post/<int:pk>/update/', PostUpdateView.as_view(), name='post_update'),
+    path('<int:pk>/comments/', CommentListView.as_view(), name='post_comments'),
+
 
 ]

@@ -32,7 +32,6 @@ class AllPostView(generic.ListView):
 class PostDetailView(generic.DetailView):
     model = Post
     template_name = 'blog/post_detail.html'
-    paginated_by = 1
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -48,6 +47,16 @@ class PostDetailOpenView(generic.DetailView):
         context = super().get_context_data(**kwargs)
         context['show_edit_page'] = False
         return context
+
+
+class CommentListView(generic.ListView):
+    model = Comment
+    template_name = 'blog/commentlist.html'
+    paginate_by = 2
+
+    def get_queryset(self):
+        posts = Comment.objects.filter(post__id=self.kwargs.get('pk'), is_published=True)
+        return posts
 
 
 class PostUpdateView(generic.UpdateView):

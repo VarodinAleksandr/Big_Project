@@ -8,7 +8,7 @@ class Post(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     is_published = models.BooleanField(default=False)
     short_discription = models.CharField(max_length=300)
-    picture = models.ImageField(upload_to='')
+    picture = models.ImageField(upload_to='upload/')
 
     def __str__(self):
         return f'post with id {self.id}, title: {self.title}, short discription: {self.short_discription}'
