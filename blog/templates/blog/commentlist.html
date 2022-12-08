@@ -8,6 +8,7 @@
 <table>
   <tr>
     <th>Comment id</th>
+      <th>From user</th>
     <th>Comment text</th>
 
 
@@ -15,7 +16,9 @@
 {% for p in object_list %}
     <tr>
     <th>{{p.id}}</th>
+        <th>{{p.username}}</th>
     <th>{{p.comment_text}}</th>
+
 </tr>
 {% endfor %}
 

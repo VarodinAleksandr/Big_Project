@@ -1,16 +1,12 @@
-# from django.contrib.auth import authenticate, login
-# from django.shortcuts import render, redirect
-from django.contrib.auth.views import LoginView
+
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views import generic
 from django.views.decorators.cache import cache_page
 
-# from . import forms
 from .forms import PostForm, CommentForm
 from .models import Post, Comment
-
-# from django.views.generic import View
 
 
 @method_decorator(cache_page(10), 'dispatch')
@@ -59,10 +55,11 @@ class CommentListView(generic.ListView):
         return posts
 
 
-class PostUpdateView(generic.UpdateView):
+class PostUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Post
     template_name = 'blog/update_post.html'
     form_class = PostForm
+    login_url = '/login/'
 
     def get_success_url(self):
         return reverse_lazy('blog:post_detail', kwargs={'pk': self.object.pk})
@@ -88,10 +85,12 @@ class NotPublishedView(generic.ListView):
         return posts
 
 
-class CreatePostsView(generic.CreateView):
+class CreatePostsView(LoginRequiredMixin, generic.CreateView):
     model = Post
     template_name = 'blog/create_post.html'
     form_class = PostForm
+    login_url = '/login/'
+    # redirect_field_name = 'redirect_to'
 
     def get_success_url(self):
         return reverse_lazy('blog:post_detail', kwargs={'pk': self.object.pk})

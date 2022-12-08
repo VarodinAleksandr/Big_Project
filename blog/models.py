@@ -18,6 +18,7 @@ class Comment(models.Model):
     comment_text = models.TextField()
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
     is_published = models.BooleanField(default=False)
+    username = models.CharField(max_length=255, default='anonim')
 
     def __str__(self):
-        return self.comment_text
+        return f'comment from {self.username} for post id {self.post.id}'
