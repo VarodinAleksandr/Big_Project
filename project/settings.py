@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'blog',
     'login',
     'django_celery_results',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
