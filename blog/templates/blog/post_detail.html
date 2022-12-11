@@ -10,7 +10,9 @@
 <p> Post title: {{post.title}}</p>
 <p> Short description: {{post.short_discription}}</p>
 <p> Description: {{post.discription}}</p>
+{% if post.picture %}
 <img src={{post.picture.url}}>
+{% endif %}
 <p> Is published: {{post.is_published}}</p>
 {% if show_edit_page %}
 <a href="{% url 'blog:post_update' post.id %}">Edit post</a><br>

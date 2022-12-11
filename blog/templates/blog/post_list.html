@@ -19,7 +19,7 @@
     <tr>
     <th><a href="{% url 'blog:post_detail' p.id %}">{{p.id}}</a></th>
     <th><a href="{% url 'blog:post_detail' p.id %}">{{p.title}}</a></th>
-    <th>{{p.owner}}</th>
+    <th><a href="{% url 'login:user_detail' p.owner.id %}">{{p.owner}}</th>
     <th>{{p.short_discription}}</th>
 </tr>
 {% endfor %}
@@ -44,5 +44,6 @@
 </div>
 <a href="{% url 'blog:create_post' %}" >Create post</a>
 <a href="{% url 'blog:post_user_list' %}" >User posts</a>
+<a href="{% url 'login:user_update' %}" >Update user details</a>
 </body>
 </html>

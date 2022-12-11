@@ -1,5 +1,8 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from .task import send_mail_to_admin, send_mail_to_user
 
 
 class Post(models.Model):
@@ -14,6 +17,12 @@ class Post(models.Model):
         return f'post with id {self.id}, title: {self.title}, short discription: {self.short_discription}'
 
 
+@receiver(post_save, sender=Post)
+def new_post_notification(instance, created, **kwargs):
+    if created:
+        send_mail_to_admin.apply_async(args=(instance.id,))
+
+
 class Comment(models.Model):
     comment_text = models.TextField()
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
@@ -22,3 +31,11 @@ class Comment(models.Model):
 
     def __str__(self):
         return f'comment from {self.username} for post id {self.post.id}'
+
+
+@receiver(post_save, sender=Comment)
+def new_comment_notification(instance, created, **kwargs):
+    if created:
+        user_email = instance.post.owner.email
+        post_id = instance.post.id
+        send_mail_to_user.apply_async(args=(user_email, post_id))

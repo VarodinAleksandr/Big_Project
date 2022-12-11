@@ -23,8 +23,8 @@ class UserDetailView(generic.DetailView):
     model = User
     template_name = 'login/user_detail.html'
 
-    def get_object(self):
-        return self.request.user
+    # def get_object(self):
+    #     return self.request.user
 
 
 class UserUpdateView(generic.UpdateView):
@@ -37,7 +37,7 @@ class UserUpdateView(generic.UpdateView):
         return self.request.user
 
     def get_success_url(self):
-        return reverse_lazy('login:user_detail')
+        return reverse_lazy('login:user_detail', kwargs={'pk': self.object.pk})
 
 
 class SignUpView(generic.CreateView):
