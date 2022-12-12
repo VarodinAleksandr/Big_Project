@@ -1,12 +1,14 @@
-
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import JsonResponse
+from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views import generic
 from django.views.decorators.cache import cache_page
 
-from .forms import PostForm, CommentForm
+from .forms import PostForm, CommentForm, ContactUs
 from .models import Post, Comment
+from .task import send_contact_us_email
 
 
 @method_decorator(cache_page(10), 'dispatch')
@@ -114,5 +116,22 @@ class CreateCommentView(generic.CreateView):
         return super(CreateCommentView, self).form_valid(form)
 
 
+def contact_us_view(request):
+    data = dict()
+    if request.method == 'POST':
+        form = ContactUs(request.POST)
+        if form.is_valid():
+            data['form_is_valid'] = True
+            username = form.cleaned_data.get('username')
+            user_email = form.cleaned_data.get('email')
+            text = form.cleaned_data.get('text')
+            send_contact_us_email.delay(user_email, f'Message from user {username}: {text}')
 
-
+            data['message'] = render_to_string('blog/success_message.html')
+        else:
+            data['form_is_valid'] = False
+    else:
+        form = ContactUs()
+    context = {'form': form}
+    data['html_form'] = render_to_string('blog/contact_us.html', context, request=request)
+    return JsonResponse(data)
