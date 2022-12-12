@@ -28,7 +28,8 @@ $(function () {
       success: function (data) {
         if (data.form_is_valid) {
           $("#contactModal").html(data.message);
-//          $("#contactModal").modal("hide");
+          $("#contactModal").delay(1000).hide(400);
+          setTimeout(function () { $("#contactModal").modal("hide"); }, 1200);
         }
         else {
           $("#contactModal .modal-content").html(data.html_form);

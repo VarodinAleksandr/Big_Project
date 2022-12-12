@@ -150,7 +150,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 EMAIL_HOST = '127.0.0.1'
 EMAIL_PORT = '1025'
-
 # cache
 
 CACHES = {

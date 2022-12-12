@@ -1,7 +1,7 @@
 from celery import shared_task
 from django.contrib.auth.models import User
 
-# from django.core.mail import send_mail
+from django.core.mail import send_mail
 
 
 @shared_task
@@ -28,3 +28,15 @@ def send_mail_to_user(useremal, post_id):
     #     [useremal],
     #     fail_silently=False,
     # )
+
+
+@shared_task
+def send_contact_us_email(email, text):
+    print('Send contact us email')
+    send_mail(
+        'You have new message from contact us',
+        text,
+        'from@example.com',
+        [email],
+        fail_silently=True,
+    )
