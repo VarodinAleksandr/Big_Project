@@ -1,8 +1,9 @@
 {% extends 'blog/base.html' %}
 
 {% block content %}
-<a href="{% url 'blog:post_user_list' %}">Back to Post list</a><br>
+<button type="button" class="btn btn-outline-success"><a href="{% url 'blog:post_list' %}">Back to Post list</a></button>
 <p> Post id: {{post.id}}</p>
+<p> Post author: {{post.owner}}</p>
 <p> Post title: {{post.title}}</p>
 <p> Short description: {{post.short_discription}}</p>
 <p> Description: {{post.discription}}</p>
@@ -10,9 +11,46 @@
 <img src={{post.picture.url}}>
 {% endif %}
 <p> Is published: {{post.is_published}}</p>
+<p>Comments:</p>
+<table class="table table-striped">
+
+  <tr>
+    <th>Comment id</th>
+    <th>Comment author</th>
+      <th>Comment text</th>
+  </tr>
+{% for c in page_obj %}
+    <tr>
+    <th>{{ c.id }}</th>
+    <th>{{ c.username }}</th>
+        <th>{{ c.comment_text }}</th>
+  </tr>
+{% endfor %}
+</table>
+
+<br>
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+<br>
+</div>
+
+
 {% if show_edit_page %}
-<a href="{% url 'blog:post_update' post.id %}">Edit post</a><br>
+<button type="button" class="btn btn-warning"> <a href="{% url 'blog:post_update' post.id %}">Edit post</a> </button>
 {% endif %}
-<a href="{% url 'blog:create_comment' post.id %}">Add comment</a><br>
-<a href="{% url 'blog:post_comments' post.id %}">Show all comments</a><br>
+<button type="button" class="btn btn-warning"> <a href="{% url 'blog:create_comment' post.id %}">Add comment</a></button>
 {% endblock %}

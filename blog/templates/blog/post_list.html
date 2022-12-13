@@ -2,15 +2,13 @@
 
 {% block content %}
 
-<a href="{% url 'login:login' %}" >LOGIN</a>
-<a href="{% url 'login:logout' %}" >LOGOUT</a>
-<table>
+
+<table class="table table-striped">
   <tr>
     <th>Post id</th>
     <th>Post title</th>
       <th>Owner of Post</th>
       <th>Short description</th>
-
   </tr>
 {% for p in object_list %}
     <tr>
@@ -20,8 +18,8 @@
     <th>{{p.short_discription}}</th>
 </tr>
 {% endfor %}
-
 </table>
+<br>
 <div class="pagination">
     <span class="step-links">
         {% if page_obj.has_previous %}
@@ -38,9 +36,12 @@
             <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
         {% endif %}
     </span>
+<br>
 </div>
-<a href="{% url 'blog:create_post' %}" >Create post</a>
-<a href="{% url 'blog:post_user_list' %}" >User posts</a>
-<a href="{% url 'login:user_update' %}" >Update user details</a>
+<button type="button" class="btn btn-warning"><a href="{% url 'blog:create_post' %}" >Create post</a></button>
+<button type="button" class="btn btn-warning"><a href="{% url 'blog:post_user_list' %}" >User posts</a></button>
+{% if user_is_logged %}
+<button type="button" class="btn btn-warning"><a href="{% url 'blog:post_user_list' %}" >All users posts</a></button>
+{% endif %}
 {% endblock %}
 

@@ -9,10 +9,15 @@
     <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="{% static 'js/contact_us.js' %}"></script>
+<link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 <body>
 <br>
-
+<button type="button" class="btn btn-primary"><a href="{% url 'login:login' %}" >LOGIN</a></button>
+<button type="button" class="btn btn-primary"><a href="{% url 'login:logout' %}" >LOGOUT</a></button>
+{% if user_is_logged %}
+<button type="button" class="btn btn-primary"><a href="{% url 'login:user_update' %}" >Edit user information</a></button>
+{% endif %}
 <!-- Button trigger modal -->
 <button type="button" class="btn btn-primary js-contact-us" data-bs-toggle="modal" data-url="{% url 'blog:contact_us' %}">
   Contact us

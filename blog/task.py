@@ -9,25 +9,29 @@ def send_mail_to_admin(post_id):
     superusers = User.objects.filter(is_superuser=True)
     for user in superusers:
         print(f'new post with id {post_id} was created')
-        # send_mail(
-        #     'new post created',
-        #     f'new post with id {post_id} was created',
-        #     'from@example.com',
-        #     [user.email],
-        #     fail_silently=False,
-        # )
+        send_mail(
+            'new post created',
+            f'new post with id {post_id} was created',
+            'from@example.com',
+            [user.email],
+            fail_silently=True,
+        )
 
 
 @shared_task
-def send_mail_to_user(useremal, post_id):
-    print(f'new comment with id {post_id} was created')
-    # send_mail(
-    #     'new comment created',
-    #     f'new comment for post with id {post_id} was created',
-    #     'from@example.com',
-    #     [useremal],
-    #     fail_silently=False,
-    # )
+def send_mail_to_user(useremal, post_url):
+    print(f'new comment with id {post_url} was created')
+    superusers = User.objects.filter(is_superuser=True)
+    emails = [i.email for i in superusers]
+    emails.append(useremal)
+    for e in emails:
+        send_mail(
+            'new comment created',
+            f'new comment for post with id {post_url} was created',
+            'from@example.com',
+            [e],
+            fail_silently=True,
+        )
 
 
 @shared_task
