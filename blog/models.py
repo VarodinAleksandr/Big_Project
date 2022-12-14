@@ -20,7 +20,7 @@ class Post(models.Model):
 @receiver(post_save, sender=Post)
 def new_post_notification(instance, created, **kwargs):
     if created:
-        send_mail_to_admin.apply_async(args=(instance.id,))
+        send_mail_to_admin(instance.id)
 
 
 class Comment(models.Model):
@@ -40,4 +40,4 @@ class Comment(models.Model):
 def new_comment_notification(instance, created, **kwargs):
     if created:
         user_email = instance.post.owner.email
-        send_mail_to_user.apply_async(args=(user_email, instance.post_url()))
+        send_mail_to_user(user_email, instance.post_url())

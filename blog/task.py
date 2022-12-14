@@ -1,10 +1,8 @@
-from celery import shared_task
 from django.contrib.auth.models import User
 
 from django.core.mail import send_mail
 
 
-@shared_task
 def send_mail_to_admin(post_id):
     superusers = User.objects.filter(is_superuser=True)
     for user in superusers:
@@ -18,7 +16,6 @@ def send_mail_to_admin(post_id):
         )
 
 
-@shared_task
 def send_mail_to_user(useremal, post_url):
     print(f'new comment with id {post_url} was created')
     superusers = User.objects.filter(is_superuser=True)
@@ -34,7 +31,6 @@ def send_mail_to_user(useremal, post_url):
         )
 
 
-@shared_task
 def send_contact_us_email(email, text):
     print('Send contact us email')
     send_mail(

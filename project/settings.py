@@ -28,10 +28,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-)rwvavme610ath19x_1_^a(4uzl4q)=ad(5e^a_l2q+%i5=-bq'
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
+DEBUG = os.getenv("SECRET_KEY") != 'False'
 
 ALLOWED_HOSTS = ['varodin.pythonanywhere.com']
 
@@ -49,7 +49,6 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'blog',
     'login',
-    'django_celery_results',
     'widget_tweaks',
 
 ]
@@ -159,12 +158,6 @@ CACHES = {
         'LOCATION': 'redis://127.0.0.1:6379',
     }
 }
-
-# celery
-
-CELERY_RESULT_BACKEND = 'django-db'
-CELERY_BROKER_URL = 'amqp://localhost'
-CELERY_TIMEZONE = TIME_ZONE
 
 INTERNAL_IPS = [
     "127.0.0.1",

@@ -130,7 +130,7 @@ def contact_us_view(request):
             username = form.cleaned_data.get('username')
             user_email = form.cleaned_data.get('email')
             text = form.cleaned_data.get('text')
-            send_contact_us_email.delay(user_email, f'Message from user {username}: {text}')
+            send_contact_us_email(user_email, f'Message from user {username}: {text}')
             data['message'] = render_to_string('blog/success_message.html')
         else:
             data['form_is_valid'] = False
