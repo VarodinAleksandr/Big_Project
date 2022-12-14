@@ -150,14 +150,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 EMAIL_HOST = '127.0.0.1'
 EMAIL_PORT = '1025'
-# cache
 
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.redis.RedisCache',
-        'LOCATION': 'redis://127.0.0.1:6379',
-    }
-}
 
 INTERNAL_IPS = [
     "127.0.0.1",

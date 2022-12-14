@@ -3,16 +3,13 @@ from django.core.paginator import Paginator
 from django.http import JsonResponse
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy
-from django.utils.decorators import method_decorator
 from django.views import generic
-from django.views.decorators.cache import cache_page
 
 from .forms import PostForm, CommentForm, ContactUs
 from .models import Post, Comment
 from .task import send_contact_us_email
 
 
-@method_decorator(cache_page(10), 'dispatch')
 class AllPostView(generic.ListView):
     model = Post
     paginate_by = 10
@@ -71,7 +68,6 @@ class PostUpdateView(LoginRequiredMixin, generic.UpdateView):
         return reverse_lazy('blog:post_detail', kwargs={'pk': self.object.pk})
 
 
-@method_decorator(cache_page(10), 'dispatch')
 class UsersPostView(generic.ListView):
     model = Post
     paginate_by = 10
