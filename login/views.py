@@ -8,7 +8,9 @@ from .forms import UserForm, SignUpForm
 
 class BlogLoginView(LoginView):
     template_name = 'login/login.html'
-    redirect_authenticated_user = True
+
+    def get_success_url(self):
+        return reverse_lazy('blog:post_list')
 
 
 class BlogLogoutView(LogoutView):
@@ -23,15 +25,11 @@ class UserDetailView(generic.DetailView):
     model = User
     template_name = 'login/user_detail.html'
 
-    # def get_object(self):
-    #     return self.request.user
-
 
 class UserUpdateView(generic.UpdateView):
     model = User
     template_name = 'login/user_update.html'
     form_class = UserForm
-    success_url = 'login:user_detail'
 
     def get_object(self):
         return self.request.user

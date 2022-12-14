@@ -1,0 +1,25 @@
+{% load widget_tweaks %}
+
+<form method="post" action="{% url 'blog:contact_us' %}" class="mb-3 js-send-contact-form">
+      {% csrf_token %}
+    {% for field in form %}
+    <div class="form-group{% if field.errors %} has-error{% endif %}">
+    <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+    {% if form.is_bound %}
+      {% if field.errors %}
+        {% render_field field class+="form-control is-invalid" %}
+        {% for error in field.errors %}
+          <div class="invalid-feedback">
+            {{ error }}
+          </div>
+        {% endfor %}
+      {% else %}
+        {% render_field field class+="form-control is-valid" %}
+      {% endif %}
+    {% else %}
+      {% render_field field class+="form-control" %}
+    {% endif %}
+  </div>
+{% endfor %}
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>

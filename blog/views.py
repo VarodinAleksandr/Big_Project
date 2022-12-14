@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.paginator import Paginator
 from django.http import JsonResponse
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy
@@ -23,7 +24,11 @@ class AllPostView(generic.ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['show_edit_page'] = True
+        print(self.request.user)
+        if self.request.user.is_anonymous:
+            context['user_is_logged'] = False
+        else:
+            context['user_is_logged'] = True
         return context
 
 
@@ -33,17 +38,16 @@ class PostDetailView(generic.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['show_edit_page'] = True
-        return context
-
-
-class PostDetailOpenView(generic.DetailView):
-    model = Post
-    template_name = 'blog/post_detail.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['show_edit_page'] = False
+        if self.object.owner == self.request.user:
+            context['show_edit_page'] = True
+        else:
+            context['show_edit_page'] = False
+        comments = Comment.objects.filter(post_id=self.kwargs.get('pk'))
+        paginator = Paginator(comments, 2)
+        page_number = self.request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        context['comments'] = comments
+        context['page_obj'] = page_obj
         return context
 
 
@@ -92,6 +96,7 @@ class CreatePostsView(LoginRequiredMixin, generic.CreateView):
     template_name = 'blog/create_post.html'
     form_class = PostForm
     login_url = '/login/'
+
     # redirect_field_name = 'redirect_to'
 
     def get_success_url(self):
@@ -108,7 +113,7 @@ class CreateCommentView(generic.CreateView):
     form_class = CommentForm
 
     def get_success_url(self):
-        return reverse_lazy('blog:post_detail_open', kwargs={'pk': self.object.post.pk})
+        return reverse_lazy('blog:post_detail', kwargs={'pk': self.object.post.pk})
 
     def form_valid(self, form):
         post = Post.objects.get(id=self.kwargs.get('pk'))
@@ -126,7 +131,6 @@ def contact_us_view(request):
             user_email = form.cleaned_data.get('email')
             text = form.cleaned_data.get('text')
             send_contact_us_email.delay(user_email, f'Message from user {username}: {text}')
-
             data['message'] = render_to_string('blog/success_message.html')
         else:
             data['form_is_valid'] = False
