@@ -33,7 +33,7 @@ SECRET_KEY = 'django-insecure-)rwvavme610ath19x_1_^a(4uzl4q)=ad(5e^a_l2q+%i5=-bq
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['varodin.pythonanywhere.com']
 
 
 # Application definition
