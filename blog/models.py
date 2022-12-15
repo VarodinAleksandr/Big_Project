@@ -5,6 +5,7 @@ from django.dispatch import receiver
 from .task import send_mail_to_admin, send_mail_to_user
 from django.urls import reverse
 
+
 class Post(models.Model):
     title = models.CharField(max_length=300)
     discription = models.TextField()
