@@ -43,4 +43,3 @@ class SignUpView(generic.CreateView):
     success_url = reverse_lazy('login')
     template_name = 'login/user_update.html'
     success_url = reverse_lazy('login:login')
-

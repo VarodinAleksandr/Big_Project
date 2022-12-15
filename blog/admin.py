@@ -18,6 +18,3 @@ class CommentAdmin(admin.ModelAdmin):
     search_fields = ['comment_text']
     list_filter = ['is_published']
     fields = ['post', 'is_published', 'comment_text']
-
-
-

@@ -34,34 +34,34 @@ class Command(BaseCommand):
         User.objects.bulk_create(bulk)
 
         description = '''
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce faucibus velit mauris. Quisque libero dolor, 
-        fermentum vitae ultricies a, scelerisque vel sem. Cras facilisis convallis pellentesque. Quisque euismod dolor 
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce faucibus velit mauris. Quisque libero dolor,
+        fermentum vitae ultricies a, scelerisque vel sem. Cras facilisis convallis pellentesque. Quisque euismod dolor
         ut efficitur laoreet. Etiam et dictum lacus. Cras viverra ex sagittis, vehicula augue quis, malesuada ante.
-         Ut scelerisque lacus nec tortor scelerisque malesuada. Nam ex urna, imperdiet at lorem eget, pharetra 
+         Ut scelerisque lacus nec tortor scelerisque malesuada. Nam ex urna, imperdiet at lorem eget, pharetra
          efficitur sapien. Morbi ac libero eu velit volutpat egestas. Integer ac lorem vehicula, fermentum nisl tempus,
-          sollicitudin sapien. Praesent egestas pharetra dignissim. Morbi sed arcu et sem feugiat tincidunt. Fusce 
+          sollicitudin sapien. Praesent egestas pharetra dignissim. Morbi sed arcu et sem feugiat tincidunt. Fusce
           tempor pellentesque elit eget interdum.
 
-        Nulla facilisi. Integer vestibulum nec tortor vitae hendrerit. Nullam bibendum luctus pulvinar. Vestibulum 
-        rutrum 
-        eros in aliquam sagittis. Ut feugiat, ipsum ac ultricies finibus, sapien massa iaculis ante, a sodales odio erat 
+        Nulla facilisi. Integer vestibulum nec tortor vitae hendrerit. Nullam bibendum luctus pulvinar. Vestibulum
+        rutrum
+        eros in aliquam sagittis. Ut feugiat, ipsum ac ultricies finibus, sapien massa iaculis ante, a sodales odio erat
         vitae purus. Duis molestie scelerisque dui et fermentum. Donec sit amet pretium diam. Ut eu metus bibendum,
-         vestibulum 
-        ante non, tincidunt enim. Praesent rutrum tempor pretium. Vivamus rhoncus tortor neque, id elementum urna 
+         vestibulum
+        ante non, tincidunt enim. Praesent rutrum tempor pretium. Vivamus rhoncus tortor neque, id elementum urna
         facilisis et.
-        
-        Vestibulum sit amet dui nibh. Phasellus sed lorem ipsum. Sed mattis laoreet ante vel vulputate. Etiam fermentum 
-        rhoncus turpis, eget commodo mauris faucibus at. Sed vehicula blandit metus, a dictum libero commodo vel. 
-        Suspendisse 
-        dapibus condimentum nunc, vitae imperdiet tellus faucibus ut. Pellentesque rutrum, erat sit amet dapibus 
+
+        Vestibulum sit amet dui nibh. Phasellus sed lorem ipsum. Sed mattis laoreet ante vel vulputate. Etiam fermentum
+        rhoncus turpis, eget commodo mauris faucibus at. Sed vehicula blandit metus, a dictum libero commodo vel.
+        Suspendisse
+        dapibus condimentum nunc, vitae imperdiet tellus faucibus ut. Pellentesque rutrum, erat sit amet dapibus
         scelerisque,
-         mauris est viverra nulla, non faucibus libero tellus et magna. Proin dignissim vestibulum est, quis 
-         ultrices sem 
-         volutpat ultricies. Sed aliquam volutpat congue. Nunc eget venenatis arcu. Maecenas accumsan urna vel 
-         vulputate 
+         mauris est viverra nulla, non faucibus libero tellus et magna. Proin dignissim vestibulum est, quis
+         ultrices sem
+         volutpat ultricies. Sed aliquam volutpat congue. Nunc eget venenatis arcu. Maecenas accumsan urna vel
+         vulputate
          viverra. Curabitur lacinia arcu ut nunc porttitor, vel rutrum ipsum viverra. Praesent tempor lacus neque,
           sed euismod turpis congue quis.
-         
+
         '''
 
         short_dscription = 'Lorem ipsum dolor'
